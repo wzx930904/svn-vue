@@ -2,19 +2,19 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '@/components/Layout'
 import SystemManage from "../components/SystemManage"
-import addSystem from "../components/addSystem"
 import branch from '../components/branch'
-import addBranch from '../components/addbranch'
 import mergeInfo from '../components/mergeInfo'
 import changeInfo from '../components/changeInfo'
 Vue.use(Router)
 
 
 export default new Router({
+  mode:'history',
   routes: [
     {
       path: '/',
       component: Layout,
+      props:true,
       children : [
         {
           path:'systemManage',
@@ -22,26 +22,20 @@ export default new Router({
           components:{table : SystemManage}
         },
         {
-          path:'systemManage/addsystemManage',
-          name:'addsystemManage',
-          components:{table:addSystem}
-        },
-        {
           path:'branch',
           name:'branch',
-          components:{table:branch}
+          components:{table:branch},
+          props:true
         },
-        { path:'systemManage/branch/addBranch',
-          name:'addBranch',
-          components:{table:addBranch}
-        },
-        { path:'systemManage/branch/mergeInfo',
+        { path:'mergeInfo/:bId/:pId',
           name:'mergeInfo',
-          components:{table:mergeInfo}
+          components:{table:mergeInfo},
+          props:true
         },
-        { path:'systemManage/branch/changeInfo',
+        { path:'changeInfo/:bId',
           name:'changeInfo',
-          components:{table:changeInfo}
+          components:{table:changeInfo},
+          props:true
         }
         ]
     }
