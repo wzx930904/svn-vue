@@ -6,18 +6,17 @@ import router from './router'
 import ElementUI from 'element-ui'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import global from './assets/global'
 import 'element-ui/lib/theme-chalk/index.css'
+
 
 Vue.use(ElementUI);
 Vue.use(VueAxios,axios);
 
 Vue.config.productionTip = false
-
-axios.defaults.baseURl='http://localhost:8081/svnrecord'
 /* eslint-disable no-new */
-var axiosInstace = axios.create({
-  baseURL:'http://localhost:8081/svnrecord'
-})
+Vue.prototype.global = global
+
 new Vue({
   el: '#app',
   router,
