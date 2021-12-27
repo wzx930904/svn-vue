@@ -96,7 +96,7 @@
       query() {
         var branchId = this.$route.params.bId;
         var self = this;
-        this.axios.get("http://localhost:8081/svnrecord/svn/merge/query.htm/" + branchId)
+        this.axios.get("/svn/merge/query.htm/" + branchId)
           .then(function (response) {
             if (response.data.success) {
               self.mergeInfos = response.data.result;
@@ -129,7 +129,7 @@
             params.append('mergeBranchId',this.form.mergeBranchId);
             params.append('mergeOperator',this.form.mergeOperator);
             params.append('mergeDate',this.form.mergeDate)
-            this.axios.post(this.global.BASEURL + '/svn/merge/save.htm',params)
+            this.axios.post('/svn/merge/save.htm',params)
               .then(function(response) {
                 if (response.data.success) {
                   self.query();
@@ -157,7 +157,7 @@
         var platformId = this.$route.params.pId;
         var bId = this.$route.params.bId;
         var self = this;
-        this.axios.get(this.global.BASEURL + "/svn/branch/getBranchsAndName.htm/"+platformId + "/" + bId)
+        this.axios.get("/svn/branch/getBranchsAndName.htm/"+platformId + "/" + bId)
           .then(function(response) {
             if (response.data.success) {
               self.branchs = response.data.result.branchs;

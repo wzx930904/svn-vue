@@ -153,7 +153,7 @@
             params.append('svnLog',this.form.svnLog);
             params.append('fileName',this.form.fileName);
             params.append('date',this.form.date)
-            this.axios.post(this.global.BASEURL + '/svn/svnrecord/save.htm',params)
+            this.axios.post('/svn/svnrecord/save.htm',params)
               .then(function(response) {
                 if (response.data.success) {
                     self.dialogFormVisible = false;
@@ -177,7 +177,7 @@
         var branchId = this.$route.params.bId;
         var fileName = this.queryInfo.fileName;
         var author = this.queryInfo.author;
-        var url = this.global.BASEURL + "/svn/svnrecord/changelog/"  + branchId;
+        var url = "/svn/svnrecord/changelog/"  + branchId;
         if (fileName.length > 0 && fileName != undefined) {
             url = url + "/fileName/" + fileName;
         }

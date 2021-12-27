@@ -9,13 +9,12 @@ import VueAxios from 'vue-axios'
 import global from './assets/global'
 import 'element-ui/lib/theme-chalk/index.css'
 
-
+axios.defaults.baseURL=global.BASEURL
 Vue.use(ElementUI);
 Vue.use(VueAxios,axios);
 
 Vue.config.productionTip = false
 /* eslint-disable no-new */
-Vue.prototype.global = global
 
 new Vue({
   el: '#app',

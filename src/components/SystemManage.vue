@@ -125,10 +125,10 @@
         var self = this;
         var params = new URLSearchParams();
         var id = this.form.id;
-        var url =this.global.BASEURL + "/svn/platform/save.htm";
+        var url = "/svn/platform/save.htm";
         if (!(id == '' || id == undefined)) {
           params.append('id',id);
-          url = this.global.BASEURL  + "/svn/platform/update.htm";
+          url = "/svn/platform/update.htm";
         }
         params.append('systemCode',this.form.systemCode);
         params.append('systemName',this.form.systemName);
@@ -171,14 +171,13 @@
       },
       deleteSystem(index,row) {
         var self = this;
-        var baseURL
         this.$confirm('此操作将永久删除该系统, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
           var id = row.id;
-          this.axios.delete(this.global.BASEURL + '/svn/platform/delete.htm/' + id)
+          this.axios.delete('/svn/platform/delete.htm/' + id)
             .then(function(response) {
               if (response.data.success) {
                 self.$message({
@@ -210,7 +209,7 @@
         var sysCode = this.queryInfo.systemCode;
         var pageNum = pageNum;
         var pageSize = this.queryInfo.pageSize;
-        var url = this.global.BASEURL +  '/svn/platform/query.htm' +  "/" + pageSize + "/" + pageNum;
+        var url = '/svn/platform/query.htm' +  "/" + pageSize + "/" + pageNum;
         if (sysCode != '') {
           url = url + "/" + sysCode;
         }
