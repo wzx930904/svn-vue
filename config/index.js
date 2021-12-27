@@ -18,7 +18,15 @@ module.exports = {
     errorOverlay: true,
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
-
+   /* proxyTable:{
+      '/svnrecord': {
+        target:'http://localhost:8081/svnrecord',
+        changeOrigin:true,
+        pathRewrite: {
+          '^/svnrecord':''
+        }
+      }
+    },*/
 
     /**
      * Source Maps

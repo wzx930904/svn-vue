@@ -140,7 +140,7 @@
           type: 'warning'
         }).then(() => {
           var id = row.id;
-          this.axios.delete(this.global.BASEURL + '/svn/branch/delete.htm/' + id)
+          this.axios.delete('/svn/branch/delete.htm/' + id)
             .then(function(response) {
               if (response.data.success) {
                 self.$message({
@@ -193,7 +193,7 @@
           if (valid) {
             var self = this;
             var platformId = this.queryInfo.queryPId;
-            var url = this.global.BASEURL + "/svn/branch/querybranch.htm"
+            var url = "/svn/branch/querybranch.htm"
             if (platformId != '') {
               url = url + "/" + platformId;
             }
@@ -215,7 +215,7 @@
       },
       querySystem() {
         var self = this;
-        this.axios.get(this.global.BASEURL + "/svn/platform/findall.htm")
+        this.axios.get("/svn/platform/findall.htm")
           .then(function (response) {
             if (response.data.success) {
               self.systems = response.data.result;
@@ -236,10 +236,10 @@
             var self = this;
             var params = new URLSearchParams();
             var id = this.form.id;
-            var url =this.global.BASEURL + "/svn/branch/save.htm";
+            var url = "/svn/branch/save.htm";
             if (!(id == '' || id == undefined)) {
               params.append('id',id);
-              url = this.global.BASEURL  + "/svn/branch/update.htm";
+              url = "/svn/branch/update.htm";
             }
             params.append('platformId',this.form.platformId);
             params.append('branchName',this.form.branchName);
