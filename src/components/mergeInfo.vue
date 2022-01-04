@@ -32,17 +32,24 @@
         <el-button type="primary" round @click="submitMerge()">保 存</el-button>
       </div>
     </el-dialog>
-    <div style="float: right;margin-top: 10px">
-      <el-button icon="el-icon-search" round @click.native="addMerge()">新增</el-button>
+    <div style="float: right;padding: 10px">
+      <el-button icon="el-icon-circle-plus" type="primary" round @click.native="addMerge()">新增</el-button>
     </div>
     <div style="margin-top: 20px">
       <el-table :data="mergeInfos" ref="branchTable" stripe border style="width: 100%">
         <el-table-column type="index"></el-table-column>
+        <el-table-column prop="id" label="id" v-if="false"></el-table-column>
         <el-table-column prop="branchName" label="分支"></el-table-column>
         <el-table-column prop="message" label="SVN LOG"></el-table-column>
         <el-table-column prop="mergeBranchName" label="merge to"></el-table-column>
         <el-table-column prop="mergeOperator" label="合并人"></el-table-column>
         <el-table-column prop="mergeDate" label="合并时间"></el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <!--<el-link icon="el-icon-edit" :underline="false" @click="updateMerge(scope.$index, scope.row)">修改</el-link>-->
+            <el-link icon="el-icon-delete" :underline="false" @click="deleteMerge(scope.$index, scope.row)">删除</el-link>
+          </template>
+        </el-table-column>
       </el-table>
     </div>
   </div>
@@ -51,7 +58,8 @@
 <script>
   import ElRow from "element-ui/packages/row/src/row";
   export default {
-    components: {ElRow},
+    components: {
+      ElRow},
     props:['bId','pId'],
     data() {
       return {
@@ -170,6 +178,41 @@
               type:'error'
             })
           })
+      },
+      deleteMerge(index,row) {
+        var self = this;
+        this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          var id = row.id;
+          this.axios.delete('/svn/merge/delete.htm/' + id)
+            .then(function(response) {
+              if (response.data.success) {
+                self.$message({
+                  type: 'success',
+                  message: '删除成功!'
+                })
+                self.query();
+              }else {
+                self.$message({
+                  type:"error",
+                  message:response.data.message
+                })
+              }
+            }).catch(function(error){
+            self.$message({
+              message:'系统异常，请联系管理员',
+              type:'error'
+            })
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          })
+        })
       }
     },
     created() {
